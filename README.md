@@ -12,7 +12,7 @@ O jogo consiste em uma única fase, onde o jogador tem por objetivo chegar ao ou
 
 ## Instalação
 
-1. Clique no botão verde acima (como mostrado nesta [imagem]('images/download.png'))  para fazer o download do jogo.
+1. Clique no botão verde acima (como mostrado nesta [imagem](images/download.png))  para fazer o download do jogo.
 2. Selecione a opção "Download Zip".
 3. Descompacte o arquivo Zip.
 4. Abra o arquivo index.html e o jogo será exibido no seu navegador.
