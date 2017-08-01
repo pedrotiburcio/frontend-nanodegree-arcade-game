@@ -57,6 +57,34 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
+
+        /* Se o jogador venceu ou perdeu, a função jogarNovamente é chamada.
+         * Após isto, caso o jogador aperte a tecla enter, o jogo é reiniciado.
+         */
+        if(player.leaves === 0 || player.venceu){
+            win.requestAnimationFrame(jogarNovamente);
+            document.addEventListener('keyup', function(e) {
+                var key = e.keyCode;
+                if(key === 13){     //código da tecla enter
+                    player.venceu = false;
+                    player.leaves = 3;
+                }
+            });
+        }
+
+    }
+
+    /* Esta função verifica se o jogador venceu ou perdeu. Em caso de vitória,
+     * será exibida uma mensagem parabenizando o jogador. Em caso de derrota,
+     * será exibida uma mensagem incentivando o jogador a tentar novamente.
+     */
+    function jogarNovamente(){
+        if(player.venceu){
+            ctx.drawImage(Resources.get('images/tela-vitoria.png'), 0, 50);
+        }
+        else{
+            ctx.drawImage(Resources.get('images/tente-novamente.png'), 0, 50);
+        }
     }
 
     /* This function does some initial setup that should only occur once,
@@ -136,8 +164,29 @@ var Engine = (function(global) {
             }
         }
 
+        /* Este bloco de código é resposável por mostrar na tela a quantidade
+         * de vidas (representadas neste jogo por corações) que o jogador possui.
+         * A cada colisão com o inimigo uma vida é perdida, sendo necessário
+         * substituir a imagem do coração por uma imagem em branco, obtendo assim
+         * o efeito do jogador ter perdido uma vida. O jogador inicia o jogo com
+         * 3 vidas.
+         */
+        var posicaoX = 0;
+        for(var i = 0; i < 3; i++){
+            if(i < player.leaves){
+                ctx.drawImage(Resources.get('images/heart.png'), posicaoX, 0);
+            }
+            else{
+                ctx.drawImage(Resources.get('images/empty.png'), posicaoX, 0);
+            }
+            posicaoX += 30;
+        }
+
+
         renderEntities();
     }
+
+
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -171,7 +220,11 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/tela-vitoria.png',
+        'images/tente-novamente.png',
+        'images/heart.png',
+        'images/empty.png'
     ]);
     Resources.onReady(init);
 
