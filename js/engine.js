@@ -61,13 +61,13 @@ var Engine = (function(global) {
         /* Se o jogador venceu ou perdeu, a função jogarNovamente é chamada.
          * Após isto, caso o jogador aperte a tecla enter, o jogo é reiniciado.
          */
-        if(player.leaves === 0 || player.venceu){
+        if(player.lifes === 0 || player.venceu){
             win.requestAnimationFrame(jogarNovamente);
             document.addEventListener('keyup', function(e) {
                 var key = e.keyCode;
-                if(key === 13){     //código da tecla enter
+                if(key === 13){     //13 é o código da tecla enter
                     player.venceu = false;
-                    player.leaves = 3;
+                    player.lifes = 3;
                 }
             });
         }
@@ -173,8 +173,8 @@ var Engine = (function(global) {
          */
         var posicaoX = 0;
         for(var i = 0; i < 3; i++){
-            if(i < player.leaves){
-                ctx.drawImage(Resources.get('images/heart.png'), posicaoX, 0);
+            if(i < player.lifes){
+                ctx.drawImage(Resources.get('images/Heart.png'), posicaoX, 0);
             }
             else{
                 ctx.drawImage(Resources.get('images/empty.png'), posicaoX, 0);
@@ -223,7 +223,7 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/tela-vitoria.png',
         'images/tente-novamente.png',
-        'images/heart.png',
+        'images/Heart.png',
         'images/empty.png'
     ]);
     Resources.onReady(init);
